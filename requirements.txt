@@ -1,4 +1,4 @@
 discord.py==1.7.2
-os
+os==10.0.19042
 random
 commands

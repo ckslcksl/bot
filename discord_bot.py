@@ -25,8 +25,14 @@ async def on_message(ctx):
         url = ctx.content.find('dotax')
         if url >= 0 : 
 
+            chatUser = ''
+            if ctx.author.nick is not None:
+                chatUser = ctx.author.nick
+            else:
+                chatUser = ctx.author.name 
+
             embed=discord.Embed(color=0x7FFFD4)
-            embed.add_field(name=ctx.author.nick,value=ctx.content + dotax,inline=True)
+            embed.add_field(name=chatUser,value=ctx.content + dotax,inline=True)
             await ctx.channel.send(embed=embed)
             await ctx.delete()
 

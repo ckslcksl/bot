@@ -1,40 +1,14 @@
-#run.py
-from collections import namedtuple
 import discord
-from discord import mentions
-from discord import channel
-from discord import member
-from discord import embeds
-from discord import client
-from discord import guild
-from discord.activity import Game
-from discord.colour import Color
-from discord.enums import Status
-from discord.ext import commands
-from discord.utils import get
-from discord import DMChannel
 
-import traceback
-import time
-import requests
-from bs4 import BeautifulSoup
-from datetime import datetime, timedelta
+from discord.ext import commands
+
 import os
-from discord.ext import tasks
-import json
 
 import random
-import pandas as pd
 
-token = 'ODQyMjQxMDkxNDM1NjI2NTI4.YJycJA.wK2IXHgstxXXUqGeH-khFUdeZn8'
+
 bot = commands.Bot(command_prefix='!')
 dotax = '?svc=popular'
-
-tlqkf = 0 
-
-banList = []
-ff = []
-keyword = ['개추']
 
 gos = { 1 : '<:11:857452587343020032>', 2 : '<:12:857452649082912768>', 3 : '<:21:857452701150740492>', 4 : '<:22:857452738002288690>'
 , 5 : '<:31:857452773692014622>', 6 : '<:32:857452807732199434>', 7 : '<:41:857452844444286996>', 8 : '<:42:857452878233993247>'
@@ -56,10 +30,6 @@ async def on_message(ctx):
     if ctx.author == bot.user: # 봇 자신이 보내는 메세지는 무시
         return
 
-    if ctx.guild.id == 233280680354643969:
-        print(ctx.guild.name + ' : ' +str(datetime.now()) + ' : ' + 
-            ctx.author.display_name + ' : ' + str(ctx.content))
-    
     if ctx.content.startswith('!'):
         await bot.process_commands(ctx) 
 
@@ -70,22 +40,11 @@ async def on_message(ctx):
             await ctx.channel.send(ctx.content + dotax)
             await ctx.delete()
 
-    for aa in keyword:
-        if aa in ctx.content:
-            await ctx.add_reaction(':ralo:809016369294606336')
-
     if '개추' in ctx.content:
         await ctx.add_reaction('👍')
  
     if '몰?루' in ctx.content:
         await ctx.add_reaction('❓')
-
-    # ㅄ
-    if ctx.author.id == 154581310671683584:
-        for rnfjd in ff:
-            if rnfjd in ctx.content:
-                await ctx.delete()
-
 
 
 
@@ -110,12 +69,6 @@ async def 골라(ctx):
         await ctx.channel.send(myMsg[4]+'!!')
     elif rd ==6:
         await ctx.channel.send(myMsg[5]+'!!')
-
-@bot.command()
-async def 고삐리(ctx):
-
-    await ctx.channel.send('https://www.youtube.com/watch?v=kbSy8-RmVeE')
-
 
 @bot.command()
 async def 섯다(ctx):
@@ -255,4 +208,5 @@ async def 섯다2(ctx):
 #    await ctx.message.delete()
     await ctx.channel.send(f'{gos[sd[0]]}{gos[sd[1]]}  {user1} ||  {user2}  {gos[sd[2]]}{gos[sd[3]]}',reference=ctx.message)
 
+token = os.environ["token"]
 bot.run(token)

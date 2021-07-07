@@ -25,7 +25,9 @@ async def on_message(ctx):
         url = ctx.content.find('dotax')
         if url >= 0 : 
 
-            await ctx.channel.send(ctx.content + dotax)
+            embed=discord.Embed(color=0x7FFFD4)
+            embed.add_field(name=ctx.author.name,value=ctx.content + dotax,inline=True)
+            await ctx.channel.send(embed=embed)
             await ctx.delete()
 
     if '개추' in ctx.content:

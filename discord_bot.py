@@ -26,7 +26,7 @@ async def on_message(ctx):
         if url >= 0 : 
 
             embed=discord.Embed(color=0x7FFFD4)
-            embed.add_field(name=ctx.author.name,value=ctx.content + dotax,inline=True)
+            embed.add_field(name=ctx.author.nick,value=ctx.content + dotax,inline=True)
             await ctx.channel.send(embed=embed)
             await ctx.delete()
 

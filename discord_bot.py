@@ -2,8 +2,12 @@ import discord
 from discord.ext import commands
 import os
 import random
+import emo
+import requests
+from bs4 import BeautifulSoup
 
 
+token = 'ODQyMjQxMDkxNDM1NjI2NTI4.YJycJA.TyBrUP_1UljvWOvWPgQ6KDtRQRQ'
 bot = commands.Bot(command_prefix='!')
 dotax = '?svc=popular'
 
@@ -65,6 +69,62 @@ async def 골라(ctx):
         await ctx.channel.send(myMsg[4]+'!!')
     elif rd ==6:
         await ctx.channel.send(myMsg[5]+'!!')
+
+@bot.command()
+async def 날씨(ctx):
+
+    word = ctx.message.content[4:]
+
+
+    url = requests.get(f'https://search.naver.com/search.naver?query={word} 날씨')
+    soup = BeautifulSoup(url.text, 'html.parser')
+
+    data1 = soup.find('div', {'class':'weather_box'})
+    today = data1.find('div',{'class':'today_area _mainTabContent'})
+    tommorow = data1.find('div',{'class':'tomorrow_area _mainTabContent'})
+
+    location = data1.find('span', {'class':'btn_select'}).text
+
+    temp = today.find('span', {'class':'todaytemp'}).text + '℃'
+    temp_cast = today.find('p',{'class':'cast_txt'}).text
+    temp_sensible = today.find('span',{'class':'sensible'}).text
+
+    ttemp = tommorow.find('span', {'class':'todaytemp'}).text + '℃'
+    ttemp_cast = tommorow.find('p',{'class':'cast_txt'}).text
+
+    ##icon
+   
+    w_icon = emo.weather_icon(temp_cast)
+    wt_icon = emo.weather_icon(ttemp_cast)
+
+    ##embed
+    embed=discord.Embed(color=0x7FFFD4)
+    embed.add_field(name=f"{word} 날씨 - {w_icon}",value=temp+" | "+temp_cast+" ! "+temp_sensible + " ||",inline=True)
+    embed.add_field(name=f"내일 날씨 - {wt_icon}",value=ttemp+" | "+ttemp_cast+" ! ",inline=True)
+
+    await ctx.message.delete()
+    await ctx.channel.send(embed=embed)
+
+@bot.command()
+async def 운세(ctx):
+
+    word = ctx.message.content[4:]
+
+    url = requests.get(f'https://search.naver.com/search.naver?query={word} 운세')
+    soup = BeautifulSoup(url.text, 'html.parser')
+
+    data1 = soup.find('div', {'id':'yearFortune'})
+
+    my_ = data1.find('li',{'class':'first_lst'}).text
+    my_icon = emo.fortune_icon(my_)
+    fortune = data1.find('p',{'class':'text _cs_fortune_text'}).text
+    
+    embed=discord.Embed(color=0x7FFFD4)
+    embed.add_field(name=f"{my_} {my_icon}",value="^"+fortune,inline=True)
+    
+    await ctx.message.delete()
+    await ctx.channel.send(embed=embed)
+
 
 token = os.environ["token"]
 bot.run(token)

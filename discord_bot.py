@@ -6,8 +6,6 @@ import emo
 import requests
 from bs4 import BeautifulSoup
 
-
-token = 'ODQyMjQxMDkxNDM1NjI2NTI4.YJycJA.TyBrUP_1UljvWOvWPgQ6KDtRQRQ'
 bot = commands.Bot(command_prefix='!')
 dotax = '?svc=popular'
 

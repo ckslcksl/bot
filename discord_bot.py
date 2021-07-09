@@ -12,7 +12,7 @@ dotax = '?svc=popular'
 @bot.event
 async def on_ready():
     print('We have logged in as {0.user}'.format(bot)) #봇이 실행되면 콘솔창에 표시
-    await bot.change_presence(status=discord.Status.online,activity=discord.Game('야옹 '))
+    await bot.change_presence(status=discord.Status.online,activity=discord.Game('~list '))
 
 @bot.event
 async def on_message(ctx):
@@ -44,7 +44,16 @@ async def on_message(ctx):
     if '몰?루' in ctx.content:
         await ctx.add_reaction('❓')
 
+    if ctx.content.startswith('~list'):
+        embed=discord.Embed(title='^명령어 리스트^',color=0x7FFFD4)
+        embed.add_field(name='!하윙',value='하윙하기',inline=False)
+        embed.add_field(name='!골라 1 2 3 4 5 6 ',value='무작위로 골라주기 (최대 6)',inline=False)
+        embed.add_field(name='!날씨 지역',value='날씨알려주기',inline=False)
+        embed.add_field(name='!운세 띠',value='운세알려주기',inline=False)
 
+        embed.set_footer(text="requested by: {}".format(ctx.author.display_name))
+
+        await ctx.channel.send(embed=embed)
 
 @bot.command()
 async def 하윙(ctx):
@@ -100,6 +109,7 @@ async def 날씨(ctx):
     embed.add_field(name=f"{word} 날씨 - {w_icon}",value=temp+" | "+temp_cast+" ! "+temp_sensible + " ||",inline=True)
     embed.add_field(name=f"내일 날씨 - {wt_icon}",value=ttemp+" | "+ttemp_cast+" ! ",inline=True)
 
+    embed.set_footer(text="requested by: {}".format(ctx.author.display_name))
     await ctx.message.delete()
     await ctx.channel.send(embed=embed)
 
@@ -120,9 +130,9 @@ async def 운세(ctx):
     embed=discord.Embed(color=0x7FFFD4)
     embed.add_field(name=f"{my_} {my_icon}",value="^"+fortune,inline=True)
     
+    embed.set_footer(text="requested by: {}".format(ctx.author.display_name))
     await ctx.message.delete()
     await ctx.channel.send(embed=embed)
-
 
 token = os.environ["token"]
 bot.run(token)

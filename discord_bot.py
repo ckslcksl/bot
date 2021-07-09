@@ -52,7 +52,8 @@ async def on_message(ctx):
         embed.add_field(name='!운세 띠',value='운세알려주기',inline=False)
 
         embed.set_footer(text="requested by: {}".format(ctx.author.display_name))
-
+        
+        await ctx.delete()
         await ctx.channel.send(embed=embed)
 
 @bot.command()

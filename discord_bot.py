@@ -6,13 +6,13 @@ import emo
 import requests
 from bs4 import BeautifulSoup
 
-bot = commands.Bot(command_prefix='!')
+bot = commands.Bot(command_prefix='$')
 dotax = '?svc=popular'
 
 @bot.event
 async def on_ready():
     print('We have logged in as {0.user}'.format(bot)) #봇이 실행되면 콘솔창에 표시
-    await bot.change_presence(status=discord.Status.online,activity=discord.Game('~list '))
+    await bot.change_presence(status=discord.Status.online,activity=discord.Game('$list '))
 
 @bot.event
 async def on_message(ctx):
@@ -46,10 +46,10 @@ async def on_message(ctx):
 
     if ctx.content.startswith('~list'):
         embed=discord.Embed(title='^명령어 리스트^',color=0x7FFFD4)
-        embed.add_field(name='!하윙',value='하윙하기',inline=False)
-        embed.add_field(name='!골라 1 2 3 4 5 6 ',value='무작위로 골라주기 (최대 6)',inline=False)
-        embed.add_field(name='!날씨 지역',value='날씨알려주기',inline=False)
-        embed.add_field(name='!운세 띠',value='운세알려주기',inline=False)
+        embed.add_field(name='$하윙',value='하윙하기',inline=False)
+        embed.add_field(name='$골라 1 2 3 4 5 6 ',value='무작위로 골라주기 (최대 6)',inline=False)
+        embed.add_field(name='$날씨 지역',value='날씨알려주기',inline=False)
+        embed.add_field(name='$운세 [ㅇㅇ]띠',value='운세알려주기',inline=False)
 
         embed.set_footer(text="requested by: {}".format(ctx.author.display_name))
         

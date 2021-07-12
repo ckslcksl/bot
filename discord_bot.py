@@ -20,7 +20,7 @@ async def on_message(ctx):
     if ctx.author == bot.user: # 봇 자신이 보내는 메세지는 무시
         return
 
-    if ctx.content.startswith('!'):
+    if ctx.content.startswith('$'):
         await bot.process_commands(ctx) 
 
     if ctx.content.startswith('http'):

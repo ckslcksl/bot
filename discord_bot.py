@@ -54,7 +54,7 @@ async def on_message(ctx):
     if '몰?루' in ctx.content:
         await ctx.add_reaction('❓')
 
-    if ctx.content.startswith('~list'):
+    if ctx.content.startswith('$list'):
         embed=discord.Embed(title='^명령어 리스트^',color=0x7FFFD4)
         embed.add_field(name='$하윙',value='하윙하기',inline=False)
         embed.add_field(name='$골라 1 2 3 4 5 6 ',value='무작위로 골라주기 (최대 6)',inline=False)

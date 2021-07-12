@@ -13,6 +13,16 @@ dotax = '?svc=popular'
 async def on_ready():
     print('We have logged in as {0.user}'.format(bot)) #봇이 실행되면 콘솔창에 표시
     await bot.change_presence(status=discord.Status.online,activity=discord.Game('$list '))
+    
+    kaya = bot.get_channel(843257021607444483)
+    while(1==1):  
+        tm = time.localtime() 
+        if (tm.tm_hour == 15 and tm.tm_min == 0) or (tm.tm_hour == 21 and tm.tm_min == 0) :
+            await kaya.send('스트레칭이 필요한 시간 ~~')
+        elif (tm.tm_hour == 16 and tm.tm_min == 0) or (tm.tm_hour == 19 and tm.tm_min == 0) or (tm.tm_hour == 22 and tm.tm_min == 0) :
+            await kaya.send('허리펴세요~')
+
+        time.sleep(60)
 
 @bot.event
 async def on_message(ctx):
